@@ -10,6 +10,9 @@ CB_QUIZ_TOPIC_PREFIX = "quiz:topic:"
 CB_QUIZ_MORE = "quiz:more"
 CB_QUIZ_CHANGE = "quiz:change"
 
+CB_TR_LANG_PREFIX = "tr:lang:"
+CB_TR_CHANGE = "tr:change"
+
 finish_kb = InlineKeyboardMarkup(
     inline_keyboard=[
         [InlineKeyboardButton(text="❌ Закінчити", callback_data=CB_FINISH)],
@@ -27,6 +30,13 @@ quiz_result_kb = InlineKeyboardMarkup(
     inline_keyboard=[
         [InlineKeyboardButton(text="➕ Ще питання", callback_data=CB_QUIZ_MORE)],
         [InlineKeyboardButton(text="🔀 Змінити тему", callback_data=CB_QUIZ_CHANGE)],
+        [InlineKeyboardButton(text="❌ Закінчити", callback_data=CB_FINISH)],
+    ]
+)
+
+translate_kb = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text="🔀 Змінити мову", callback_data=CB_TR_CHANGE)],
         [InlineKeyboardButton(text="❌ Закінчити", callback_data=CB_FINISH)],
     ]
 )

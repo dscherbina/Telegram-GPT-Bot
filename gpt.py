@@ -1,5 +1,6 @@
 """Тонкий асинхронний клієнт до OpenAI Chat Completions."""
 import logging
+import base64
 
 from openai import AsyncOpenAI, OpenAIError
 
@@ -61,5 +62,23 @@ async def ask_with_system(system_prompt: str, user_message: str) -> str:
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_message},
+    ]
+    return await ask(messages)
+
+async def ask_about_image(image_bytes: bytes) -> str:
+    """Розпізнавання зображення: передає картинку моделі як data-URL."""
+    encoded = base64.b64encode(image_bytes).decode("utf-8")
+    messages = [
+        {"role": "system", "content": load_prompt("vision")},
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "Що зображено на цій картинці?"},
+                {
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/jpeg;base64,{encoded}"},
+                },
+            ],
+        },
     ]
     return await ask(messages)
